@@ -37,6 +37,10 @@
   </PropertyGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\PlayerController.cs" />
+     <Compile Include="Assets\Scripts\animator\attackIsDone.cs" />
+     <Compile Include="Assets\Scripts\dynamicCam.cs" />
+     <Compile Include="Assets\Scripts\grass.cs" />
+     <Compile Include="Assets\Scripts\hit.cs" />
      <Compile Include="Assets\Sprites\AurynSky\Gems Ultimate Pack\Scripts\AnimationScript.cs" />
      <None Include="Assets\Sprites\AurynSky\Gems Ultimate Pack\READ ME.txt" />
      <None Include="Assets\Sprites\Nicrom\PolyPacks\Wind\Documentation\LPW_Log.txt" />
@@ -575,6 +579,9 @@
     <Reference Include="Unity.Timeline.Editor">
         <HintPath>C:/Users/vinig/Documents/Programação/Unity/Projeto Zelda/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Cinemachine">
+        <HintPath>C:/Users/vinig/Documents/Programação/Unity/Projeto Zelda/Library/ScriptAssemblies/Cinemachine.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.VSCode.Editor">
         <HintPath>C:/Users/vinig/Documents/Programação/Unity/Projeto Zelda/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
     </Reference>
@@ -590,26 +597,23 @@
     <Reference Include="Unity.CollabProxy.Editor">
         <HintPath>C:/Users/vinig/Documents/Programação/Unity/Projeto Zelda/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Postprocessing.Editor">
+        <HintPath>C:/Users/vinig/Documents/Programação/Unity/Projeto Zelda/Library/ScriptAssemblies/Unity.Postprocessing.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Rider.Editor">
         <HintPath>C:/Users/vinig/Documents/Programação/Unity/Projeto Zelda/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Postprocessing.Runtime">
+        <HintPath>C:/Users/vinig/Documents/Programação/Unity/Projeto Zelda/Library/ScriptAssemblies/Unity.Postprocessing.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="com.unity.cinemachine.editor">
+        <HintPath>C:/Users/vinig/Documents/Programação/Unity/Projeto Zelda/Library/ScriptAssemblies/com.unity.cinemachine.editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
         <HintPath>C:/Users/vinig/Documents/Programação/Unity/Projeto Zelda/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UI">
         <HintPath>C:/Users/vinig/Documents/Programação/Unity/Projeto Zelda/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="Cinemachine">
-        <HintPath>C:/Users/vinig/Documents/Programação/Unity/Projeto Zelda/Library/ScriptAssemblies/Cinemachine.dll</HintPath>
-    </Reference>
-    <Reference Include="com.unity.cinemachine.editor">
-        <HintPath>C:/Users/vinig/Documents/Programação/Unity/Projeto Zelda/Library/ScriptAssemblies/com.unity.cinemachine.editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Postprocessing.Editor">
-        <HintPath>C:/Users/vinig/Documents/Programação/Unity/Projeto Zelda/Library/ScriptAssemblies/Unity.Postprocessing.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Postprocessing.Runtime">
-        <HintPath>C:/Users/vinig/Documents/Programação/Unity/Projeto Zelda/Library/ScriptAssemblies/Unity.Postprocessing.Runtime.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

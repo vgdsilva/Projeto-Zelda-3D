@@ -8,16 +8,25 @@ public class PlayerController : MonoBehaviour
     private CharacterController controller; // Chama o Controlador do Personagem da propria Unity
     private Animator animator;
 
-    [Header("Config Player")]
+    [Header("Player Config")]
     public float movementSpeed = 3f; // movimentação do personagem
-
     private Vector3 direction;
     private bool isWalk; // objeto boleano para definir se ele esta andando
 
+    // inputs objetos
+    private float horizontal;
+    private float vertical;
 
-    [Header("Camera")]
-    public GameObject camB; // objeto de camera para controlar outros tipos de camera
-    
+    [Header("Attack Config")]
+    public ParticleSystem fxAttack; // variavel para utilização de particulas do player
+    public Transform hitBox; // variavel para 
+    [Range(0.2f, 1f)]
+    public float hitRange = 0.5f;
+    public LayerMask hitMask;
+    private bool isAttack; // variavel para dizer se o personagem esta atacando
+    public Collider[] hitInfo;
+    public int amountDamege;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,20 +37,58 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float horizontal = Input.GetAxis("Horizontal"); //Função do Unity que seta a direção e os controles dessa direção
-        float vertical = Input.GetAxis("Vertical");
+        Inputs();
+        MoveCharacter();
+        UpdateAnimator();
+        
 
-        if (Input.GetButtonDown("Fire1")) //Getbuttondown quando apertar tal botão
-        {
-            animator.SetTrigger("Attack02"); // ao clicar no button Fire1 vai acontecer essa trigger
+    }
 
-        }else if (Input.GetButtonDown("Fire2"))
-        {
-            animator.SetTrigger("Attack01");
+    #region MEUS METODOS
+
+    // Metodo Responsavel pelos Controles do Player
+    void Inputs()
+    {
+        horizontal = Input.GetAxis("Horizontal"); //Função do Unity que seta a direção e os controles dessa direção
+        vertical = Input.GetAxis("Vertical");
+
+        if (Input.GetButtonDown("Fire1") && isAttack == false) //Getbuttondown quando apertar tal botão
+        { 
+            AttackLeftClick(); 
         }
+        else if (Input.GetButtonDown("Fire2"))
+        { 
+            AttackRigthClick(); 
+        }
+    }
 
+    void AttackLeftClick()
+    {
+        isAttack = true;
+        animator.SetTrigger("Attack02"); // ao clicar no button Fire1 vai acontecer essa trigger
+        fxAttack.Emit(1);
 
+        hitInfo = Physics.OverlapSphere(hitBox.position, hitRange, hitMask);
 
+        foreach (Collider c in hitInfo)
+        {
+            c.gameObject.SendMessage("Gethit", amountDamege, SendMessageOptions.DontRequireReceiver);
+        }
+    }
+
+    void AttackRigthClick()
+    {
+        animator.SetTrigger("Attack01");
+    }
+
+    void AttackIsDone()
+    {
+        isAttack = false;
+    }
+
+    // Metodo responsavel pela movimentação do player
+    void MoveCharacter()
+    {
         direction = new Vector3(horizontal, 0f, vertical).normalized; // Função para movimentar o personagem nas respectivas direções
 
         if (direction.magnitude > 0.1f) // Função para calcular a Rotação do Player
@@ -56,31 +103,22 @@ public class PlayerController : MonoBehaviour
         }
 
         controller.Move(direction * movementSpeed * Time.deltaTime); // Função ja existente dentro da unity para controlar o personagem
+    }
+
+    // Metodo responsavel pela animação do player
+    void UpdateAnimator()
+    {
         animator.SetBool("isWalk", isWalk);
-
     }
 
-    //Sistema de Camera dinamica
+    #endregion  
 
-    private void OnTriggerEnter (Collider other)
+    private void OnDrawGizmosSelected() 
     {
-        switch (other.gameObject.tag)  // vai mudar quando colidir com o CamTrigger que é o objeto criado 
-        {
-            case "CamTrigger":
-                camB.SetActive(true);
-                break;
+        if(hitBox != null) { 
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(hitBox.position, hitRange);
         }
     }
 
-    private void OnTriggerExit (Collider other)
-    {
-        switch (other.gameObject.tag)
-        {
-            default:
-                camB.SetActive(false);
-                break;
-        }
-    }
-
-    // Fim sistema de Camera Dinamida
 }
